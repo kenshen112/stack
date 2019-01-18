@@ -1,9 +1,37 @@
 #ifndef STACK_H
 #define STACK_H
 
-class Stack
-{
+template <class T>
 
+class Stack {
+
+private:
+  T *data;
+  int numElements;
+  int numCapacity;
+
+public:
+  Stack();
+
+  Stack(int numCap);
+
+  Stack(Stack &rhs);
+
+  void assign(Stack &rhs) {}
+
+  int size();
+
+  int capacity();
+
+  bool empty();
+
+  void clear();
+
+  void push(T data);
+
+  void pop();
+
+  ~Stack();
 };
 
 /*******************************************
