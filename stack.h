@@ -11,62 +11,39 @@ private:
   int numCapacity;
 
 public:
-  Stack() 
-  {
-    numElements = 0;
-    numCapacity = 0;
-    data = nullptr;
-  }
+  Stack();
 
-  Stack(int numCap) 
-  {
-    numElements = 0;
-    numCapacity = numCap;
-  }
+  Stack(int numCap);
 
-  Stack(Stack &rhs) 
-  {
-
-  }
+  Stack(Stack &rhs);
 
   void assign(Stack &rhs) {}
 
-  int size() 
-  {
+  int size();
 
-  }
+  int capacity();
 
-  int capacity()
-  {
+  bool empty();
 
-  }
+  void clear();
 
-bool empty()
-{
+  void push(T data);
 
-}
-
-void clear()
-{
-
-}
-
-
-void push(T data)
-{
-
-
-
-}
-
-
-void pop()
-{
-
-}
-
+  void pop();
 
   ~Stack();
 };
+
+Stack<T> Stack() {
+  numElements = 0;
+  numCapacity = 0;
+  data = nullptr;
+}
+
+Stack<T> Stack(int numElements) {}
+
+Stack<T> Stack(Stack &rhs) {}
+
+Stack<T> ~Stack() {}
 
 #endif /* STACK_H */
