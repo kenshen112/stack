@@ -1,8 +1,6 @@
 #ifndef STACK_H
 #define STACK_H
-#include <iostream>
-#include<string>
-using std::cout;
+
 namespace custom {
 
 template <class T> class stack {
@@ -116,22 +114,12 @@ bool stack<T>::empty() {
  * thereby increasing size by one Const T
  *******************************************/
 
-template <class T>
-void stack<T>::push(const T & element) 
-{
-   cout << strlen(c_str(element)) << "\n";
-   //Checks if stack is empty. If it is it sets the capacity to 1
-   if (empty() == true)
-   {
-      numCapacity = 1;
-      data = new T[numElements];
-   }
-
-   if (size() == capacity()) {
-    resize(capacity() * 2);
+template <class T> 
+void stack<T>::push(const T &element) {
+  if (size() == capacity()) {
+    resize(numCapacity += 2);
   }
   data[numElements++] = element;
-   //T(data, numElements);
 }
 
 /********************************************
