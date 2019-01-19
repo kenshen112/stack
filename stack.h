@@ -6,7 +6,7 @@ template <class T>
 class Stack {
 
 private:
-  T *data; // this needs to be an array like data[].
+  T *data; 
   int numElements;
   int numCapacity;
   bool isEmpty;
@@ -15,28 +15,29 @@ public:
   Stack()
   {
   numElements = 0;
-  cap = 0;
-  array = new T[cap];
+  numCapacity = 0;
+  data = new T[numCapacity];
  }
 
 Stack(int c) 
 {
   numElements = 0;
-  cap = c;
-  array = new T[cap];
+  numCapacity = c;
+  data = new T[numCapacity];
 }
 
 Stack(const Stack<T> &rhs) throw(const char *) {
   try {
-    if (maxSize != rhs.maxSize) {
-      data = new T[rhs.maxSize];
+    if (numElements != rhs.numElements) {
+      data = new T[rhs.numElements];
     }
 
     for (int i = 0; i < rhs.size(); i++) {
       data[i] = rhs.data[i];
     }
-    maxSize = rhs.maxSize;
-    position = rhs.position;
+
+    numCapacity = rhs.numCapacity;
+    numElements = rhs.numElements;
   } catch (std::bad_alloc &er) {
     throw(" ERROR: Unable to allocate a new buffer for vector");
     exit(1);
@@ -54,23 +55,24 @@ Stack(const Stack<T> &rhs) throw(const char *) {
 
   void clear();
 
-  void push(T element);
+  int push(T element);
   // I think push should look like this void push(const T & element). push is
   // looking for an int
 
   void pop();
 
   // Getter
-  const T &stack<T>::top() const throw(const char *);
+  Stack<T>::top() const throw(const char *);
 
   // Setter
-  T &stack<T>::top() throw(const char *);
+  T &Stack<T>::top() throw(const char *);
 
   ~Stack();
 };
 
+template <class T>
 
-int size() const { return numElements; }
+int Stack <T> :: size() const { return numElements; }
 
 /*******************************************
  * Stack :: Assignment
@@ -79,7 +81,7 @@ template <class T>
 Stack<T> &Stack<T>::operator=(const Stack<T> &rhs) throw(const char *) {
 
   numElements = 0;
-  if (rhs.size() > rhs.capacity()) {
+  if (rhs.size() > rhs.numCapacity()) {
     resize(rhs.size());
   }
   numElements = rhs.size();
@@ -95,7 +97,8 @@ Stack<T> &Stack<T>::operator=(const Stack<T> &rhs) throw(const char *) {
  * Stack : EMPTY
  * checks if the vector is empty
  *******************************************/
-template <class T> bool Stack<T>::empty() {
+template <class T> 
+bool Stack<T>::empty() {
   if (size() == 0) {
     isEmpty = true;
   } else {
@@ -107,9 +110,11 @@ template <class T> bool Stack<T>::empty() {
 /********************************************
  * Stack : PUSH
  * Adds an element to the top of the stack,
- * thereby increasing size by one.
+ * thereby increasing size by one Const T
  *******************************************/
-void push(T data) {
+
+template <class T>
+void Stack <T> :: push(T data) {
   if (size() = capacity()) {
     resize(capacity() * 2);
   }
@@ -121,7 +126,8 @@ void push(T data) {
  * Remove the top-most element in the stack,
  * thereby reducing the size by one.
  *******************************************/
-void pop() {
+template <class T>
+void Stack <T> :: pop() {
   if (!empty()) {
     --numElements;
   } else {
@@ -134,7 +140,7 @@ void pop() {
  * Returns the top-most element in the stack.
  *******************************************/
 template <class T> 
-const T &stack<T>::top() const throw(const char *);
+Stack<T>::top() const throw(const char *);
 {
   if (!empty()) {
     return data[size() - 1];
