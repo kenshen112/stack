@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="stack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="assignment02.cpp" />
