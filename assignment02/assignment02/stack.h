@@ -28,7 +28,7 @@ stack(int c)
   data = new T[numCapacity];
 }
 
-stack(const Stack<T> &rhs) throw(const char *) {
+stack(const stack<T> &rhs) throw(const char *) {
   try {
     if (numElements != rhs.numElements) {
       data = new T[rhs.numElements];
