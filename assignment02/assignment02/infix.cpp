@@ -42,7 +42,7 @@ string convertInfixToPostfix(const string & infix)
    for (int iInfix = 0; iInfix < infix.length(); iInfix++)
    {
       //Operands; numeric and alpha
-      if (isalpha(infix[iInfix]))
+      if (infix[iInfix] >= '0' && infix[iInfix] <= '9')
       {
          postfix += infix[iInfix];
       }

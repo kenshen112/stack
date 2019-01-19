@@ -1,14 +1,4 @@
-﻿  assignment02.cpp
-c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\assignment02.cpp(197): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(56): warning C4101: 'er': unreferenced local variable
-  c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(42): note: while compiling class template member function 'custom::stack<std::string>::stack(const custom::stack<std::string> &)'
-  c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\assignment02.cpp(245): note: see reference to function template instantiation 'custom::stack<std::string>::stack(const custom::stack<std::string> &)' being compiled
-  c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\assignment02.cpp(231): note: see reference to class template instantiation 'custom::stack<std::string>' being compiled
-  infix.cpp
+﻿  infix.cpp
 c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\infix.cpp(42): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
 c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(190): warning C4715: 'custom::stack<char>::resize': not all control paths return a value
-c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(190): warning C4715: 'custom::stack<int>::resize': not all control paths return a value
-c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(190): warning C4715: 'custom::stack<double>::resize': not all control paths return a value
-c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(190): warning C4715: 'custom::stack<std::basic_string<char,std::char_traits<char>,std::allocator<char> > >::resize': not all control paths return a value
   assignment02.vcxproj -> C:\Users\Kenyon B\source\repos\kenshen112\stack\assignment02\Debug\assignment02.exe
