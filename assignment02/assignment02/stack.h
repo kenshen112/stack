@@ -1,6 +1,9 @@
 #ifndef STACK_H
 #define STACK_H
 
+namespace custom
+{
+
 template <class T>
 
 class Stack {
@@ -47,7 +50,7 @@ Stack(const Stack<T> &rhs) throw(const char *) {
   // Assignment operator
   Stack<T> &Stack<T>::operator=(const Stack<T> &rhs) throw(const char *);
 
-  int size();
+  int size() const;
 
   int capacity();
 
@@ -55,7 +58,7 @@ Stack(const Stack<T> &rhs) throw(const char *) {
 
   void clear();
 
-  int push(T element);
+  void push(const T & element);
   // I think push should look like this void push(const T & element). push is
   // looking for an int
 
@@ -114,7 +117,7 @@ bool Stack<T>::empty() {
  *******************************************/
 
 template <class T>
-void Stack <T> :: push(T data) {
+void Stack <T> :: push(const T & element) {
   if (size() = capacity()) {
     resize(capacity() * 2);
   }
@@ -167,8 +170,8 @@ int Stack<T>::resize(int capacityNew) {
   } catch (std::bad_alloc) {
     throw "ERROR: Unable to allocate new buffer for vector";
   }
-}
-}
-; // namespace custom
+};
+} // namespace custom
+
 
 #endif /* STACK_H */
