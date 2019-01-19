@@ -21,8 +21,8 @@ public:
 
   stack(int c) 
   {
-    numElements = 0;
-    numCapacity = c;
+    numElements = c;
+    numCapacity = 0;
     data = new T[numCapacity];
   }
 
@@ -50,7 +50,8 @@ public:
   //stack <T> & stack <T> :: operator =(const stack <T> & rhs) throw(const char *);
   
   int size() const { return numElements; }
-  int capacity() const { return numCapacity; }
+  int capacity() const {return numCapacity; }
+
 
   bool empty();
 
@@ -76,7 +77,7 @@ public:
   if (numElements != rhs.numElements){
         resize(rhs.size());
     }
-    
+
     numElements = rhs.size();
 
     for (int i = 0; i < numElements - 1; i++) {
