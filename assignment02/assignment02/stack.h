@@ -116,8 +116,14 @@ bool stack<T>::empty() {
 
 template <class T> 
 void stack<T>::push(const T &element) {
-  if (size() == capacity()) {
-    resize(numCapacity += 2);
+
+   if (numCapacity == 0)
+   {
+      numCapacity = 1;
+      //data = new T[numElements];
+   }
+  if (size() <= capacity()) {
+    resize(numCapacity *= 2);
   }
   data[numElements++] = element;
 }
