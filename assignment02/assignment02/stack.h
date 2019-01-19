@@ -49,9 +49,8 @@ stack(const stack<T> &rhs) throw(const char *) {
   // Assignment operator
    //stack <T> & stack <T> :: operator = (const stack <T> & rhs) throw(const char *);
   //stack <T> & stack <T> :: operator =(const stack <T> & rhs) throw(const char *);
-
-  int size() const;
-
+  
+  int size() const { return numElements; }
   int capacity();
 
   bool empty();
@@ -63,10 +62,12 @@ stack(const stack<T> &rhs) throw(const char *) {
   void pop();
 
   // Getter
-  void stack<T>::top() const throw(const char *);
+  void top() const throw(const char *);
 
   // Setter
-  void stack<T>::top() throw(const char *);
+  void top() throw(const char *);
+
+  
   /*******************************************
  * Stack :: Assignment
  *******************************************/
@@ -85,12 +86,11 @@ stack(const stack<T> &rhs) throw(const char *) {
      // Not sure on this one
      return *this;
   }
-  int stack<T>::resize(int capacityNew);
+  int resize(int capacityNew);
   ~stack();
 };
 
-template <class T>
-int stack <T> :: size() const { return numElements; }
+
 
 
 
