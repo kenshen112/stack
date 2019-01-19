@@ -33,8 +33,8 @@ public:
    //Non-default cosntructor
    stack(int c) 
    {
-      numElements = c;
-      numCapacity = 0;
+      numElements = 0;
+      numCapacity = c;
       data = new T[numCapacity];
    }
 
