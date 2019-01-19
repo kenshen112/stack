@@ -48,7 +48,7 @@ stack(const Stack<T> &rhs) throw(const char *) {
 }
 
   // Assignment operator
-  stack<T> &stack<T>::operator=(const Stack<T> &rhs) throw(const char *);
+  stack<T> &stack<T>::operator=(const stack<T> &rhs) throw(const char *);
 
   int size() const;
 
