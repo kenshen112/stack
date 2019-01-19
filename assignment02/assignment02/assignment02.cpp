@@ -258,6 +258,7 @@ void testPop()
                break;
             case '!':
                cout << "\tSize:     " << s.size() << endl;
+               cout << "\tEmpty?    " << (s.empty() ? "Yes" : "No") << endl;
   }
       }
       while (instruction != '!');
@@ -284,7 +285,7 @@ void testErrors()
    try
    {
       s.top();
- cout << "BUG! We should not be able to top() with an empty Stack!\n";
+ cout << "BUG! We should not be able to top() with an empty stack!\n";
    }
    catch (const char * error)
    {
