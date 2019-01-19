@@ -73,9 +73,10 @@ public:
   stack <T> & operator = (const stack <T> & rhs) 
   {
     numElements = 0;
-    if (rhs.size() > rhs.capacity()) {
-      resize(rhs.size());
+  if (numElements != rhs.numElements){
+        resize(rhs.size());
     }
+    
     numElements = rhs.size();
 
     for (int i = 0; i < numElements - 1; i++) {
