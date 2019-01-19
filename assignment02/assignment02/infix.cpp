@@ -15,7 +15,7 @@
 #include "stack.h"     // for STACK
 using namespace std;
 
-//Function to return precedence of operators 
+//Function to return order of operations
 int orderOfOperations(char c)
 {
    if (c == '^')
@@ -38,54 +38,70 @@ string convertInfixToPostfix(const string & infix)
    //flag marker for start of stack
    stack.push('S');
    string postfix;
+   postfix += ' ';
 
    for (int iInfix = 0; iInfix < infix.length(); iInfix++)
    {
       //Operands; numeric and alpha
-      if (infix[iInfix] >= '0' && infix[iInfix] <= '9')
+      if (infix[iInfix] == ' ')
       {
-         postfix += infix[iInfix];
+         //Do nothing
       }
-
-      //Parentheses '('
-      else if (infix[iInfix] == '(')
+      else
       {
-         stack.push('(');
-      }
-
-      // Parentheses ')'
-      else if (infix[iInfix] == ')')
-      {
-         while (stack.top() != 'S' && stack.top() != '(')
+         if (isalnum(infix[iInfix]))
          {
-            char c = stack.top();
-            stack.pop();
-            postfix += c;
+            if (iInfix != 0 && orderOfOperations(infix[iInfix]) < 1)
+            {
+               postfix += ' ';
+            }
+            postfix += infix[iInfix];
          }
-         if (stack.top() == '(')
+
+         //Parentheses '('
+         else if (infix[iInfix] == '(')
          {
-            char c = stack.top();
-            stack.pop();
+            stack.push('(');
+         }
+
+         // Parentheses ')'
+         else if (infix[iInfix] == ')')
+         {
+            while (stack.top() != 'S' && stack.top() != '(')
+            {
+               char c = stack.top();
+               stack.pop();
+               postfix += c;
+            }
+            if (stack.top() == '(')
+            {
+               char c = stack.top();
+               stack.pop();
+            }
+         }
+
+         //Operator
+         else
+         {
+            while (stack.top() != 'S' && orderOfOperations(infix[iInfix]) <= orderOfOperations(stack.top()))
+            {
+               
+               char c = stack.top();
+               stack.pop();
+               postfix += ' ';
+               postfix += c;
+               
+            }
+            stack.push(infix[iInfix]);
          }
       }
-
-      //Operator
-      else {
-         while (stack.top() != 'S' && orderOfOperations(infix[iInfix]) <= orderOfOperations(stack.top()))
-         {
-            char c = stack.top();
-            stack.pop();
-            postfix += c;
-         }
-         stack.push(infix[iInfix]);
-      }
-
    }
    //Pop remaining elements from the stack 
    while (stack.top() != 'S')
    {
       char c = stack.top();
       stack.pop();
+      postfix += ' ';
       postfix += c;
    }
    return postfix;
