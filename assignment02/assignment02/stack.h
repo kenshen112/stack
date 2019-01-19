@@ -6,7 +6,7 @@ namespace custom
 
 template <class T>
 
-class Stack {
+class stack {
 
 private:
   T *data; 
@@ -15,21 +15,21 @@ private:
   bool isEmpty;
 
 public:
-  Stack()
+  stack()
   {
   numElements = 0;
   numCapacity = 0;
   data = new T[numCapacity];
  }
 
-Stack(int c) 
+stack(int c) 
 {
   numElements = 0;
   numCapacity = c;
   data = new T[numCapacity];
 }
 
-Stack(const Stack<T> &rhs) throw(const char *) {
+stack(const Stack<T> &rhs) throw(const char *) {
   try {
     if (numElements != rhs.numElements) {
       data = new T[rhs.numElements];
@@ -48,7 +48,7 @@ Stack(const Stack<T> &rhs) throw(const char *) {
 }
 
   // Assignment operator
-  Stack<T> &Stack<T>::operator=(const Stack<T> &rhs) throw(const char *);
+  stack<T> &stack<T>::operator=(const Stack<T> &rhs) throw(const char *);
 
   int size() const;
 
@@ -65,23 +65,23 @@ Stack(const Stack<T> &rhs) throw(const char *) {
   void pop();
 
   // Getter
-  Stack<T>::top() const throw(const char *);
+  stack<T>::top() const throw(const char *);
 
   // Setter
-  T &Stack<T>::top() throw(const char *);
+  T &stack<T>::top() throw(const char *);
 
-  ~Stack();
+  ~stack();
 };
 
 template <class T>
 
-int Stack <T> :: size() const { return numElements; }
+int stack <T> :: size() const { return numElements; }
 
 /*******************************************
  * Stack :: Assignment
  *******************************************/
 template <class T>
-Stack<T> &Stack<T>::operator=(const Stack<T> &rhs) throw(const char *) {
+stack<T> &stack<T>::operator=(const stack<T> &rhs) throw(const char *) {
 
   numElements = 0;
   if (rhs.size() > rhs.numCapacity()) {
@@ -101,7 +101,7 @@ Stack<T> &Stack<T>::operator=(const Stack<T> &rhs) throw(const char *) {
  * checks if the vector is empty
  *******************************************/
 template <class T> 
-bool Stack<T>::empty() {
+bool stack<T>::empty() {
   if (size() == 0) {
     isEmpty = true;
   } else {
@@ -117,7 +117,7 @@ bool Stack<T>::empty() {
  *******************************************/
 
 template <class T>
-void Stack <T> :: push(const T & element) {
+void stack <T> :: push(const T & element) {
   if (size() = capacity()) {
     resize(capacity() * 2);
   }
@@ -130,7 +130,7 @@ void Stack <T> :: push(const T & element) {
  * thereby reducing the size by one.
  *******************************************/
 template <class T>
-void Stack <T> :: pop() {
+void stack <T> :: pop() {
   if (!empty()) {
     --numElements;
   } else {
@@ -143,7 +143,7 @@ void Stack <T> :: pop() {
  * Returns the top-most element in the stack.
  *******************************************/
 template <class T> 
-Stack<T>::top() const throw(const char *);
+stack<T>::top() const throw(const char *);
 {
   if (!empty()) {
     return data[size() - 1];
