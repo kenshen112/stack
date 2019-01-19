@@ -21,7 +21,45 @@ using namespace std;
  *****************************************************/
 string convertInfixToPostfix(const string & infix)
 {
+   custom::stack<char> stack;
    string postfix;
+   for (int iInfix = 0; iInfix < infix.size() - 1; iInfix++)
+   {
+      if ((infix[iInfix] >= 'a' && infix[iInfix] <= 'z') || (infix[iInfix] >= 'A' && infix[iInfix] <= 'Z'))
+      {
+         postfix += infix[iInfix];
+      }
+      else if (infix[iInfix]  == '(')
+      {
+         stack.push('(');
+      }
+      else if (infix[iInfix] == ')')
+      {
+         
+         while (stack.top() != '(')
+         {
+            postfix += stack.top();
+            stack.pop();
+         }stack.pop();
+         if (stack.top() == '(')
+         {
+            char c = stack.top();
+            stack.pop();
+         }
+      }
+      else {
+         while (!stack.empty() && infix[iInfix] <= stack.top())
+         {
+            postfix += stack.top();
+            stack.pop();
+         }stack.push(infix[iInfix]);
+      }
+   }
+   while (!stack.empty())
+   {
+      postfix += stack.top();
+      stack.pop();
+   }
 
    return postfix;
 }
