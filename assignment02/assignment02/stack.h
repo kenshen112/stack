@@ -5,7 +5,6 @@ namespace custom
 {
 
 template <class T>
-
 class stack {
 
 private:
@@ -48,7 +47,8 @@ stack(const Stack<T> &rhs) throw(const char *) {
 }
 
   // Assignment operator
-  stack<T> &stack<T>::operator=(const Stack<T> &rhs) throw(const char *);
+   //stack <T> & stack <T> :: operator = (const stack <T> & rhs) throw(const char *);
+  //stack <T> & stack <T> :: operator =(const stack <T> & rhs) throw(const char *);
 
   int size() const;
 
@@ -65,36 +65,36 @@ stack(const Stack<T> &rhs) throw(const char *) {
   void pop();
 
   // Getter
-  stack<T>::top() const throw(const char *);
+  void stack<T>::top() const throw(const char *);
 
   // Setter
-  T &stack<T>::top() throw(const char *);
+  void T & stack<T>::top() throw(const char *);
+  /*******************************************
+ * Stack :: Assignment
+ *******************************************/
+  template <class T>
+  stack <T> & stack <T> :: operator = (const stack <T> & rhs) throw(const char *) {
+
+     numElements = 0;
+     if (rhs.size() > rhs.numCapacity()) {
+        resize(rhs.size());
+     }
+     numElements = rhs.size();
+
+     for (int i = 0; i < numElements - 1; i++) {
+        data[i] = rhs.data[i];
+     }
+     // Not sure on this one
+     return *this;
+  }
 
   ~stack();
 };
 
 template <class T>
-
 int stack <T> :: size() const { return numElements; }
 
-/*******************************************
- * Stack :: Assignment
- *******************************************/
-template <class T>
-stack<T> &stack<T>::operator=(const stack<T> &rhs) throw(const char *) {
 
-  numElements = 0;
-  if (rhs.size() > rhs.numCapacity()) {
-    resize(rhs.size());
-  }
-  numElements = rhs.size();
-
-  for (int i = 0; i < numElements - 1; i++) {
-    data[i] = rhs.data[i];
-  }
-  // Not sure on this one
-  return *this;
-}
 
 /********************************************
  * Stack : EMPTY
@@ -143,13 +143,25 @@ void stack <T> :: pop() {
  * Returns the top-most element in the stack.
  *******************************************/
 template <class T> 
-stack<T>::top() const throw(const char *);
+void stack<T>::top() const throw(const char *)
 {
   if (!empty()) {
     return data[size() - 1];
   } else {
     throw "ERROR: Unable to reference the element from an empty stack";
   }
+}
+
+void T & stack<T>::top() throw(const char *)
+{
+   if (!empty()) 
+   {
+      return data[size() - 1];
+   }
+   else 
+   {
+      throw "ERROR: Unable to reference the element from an empty stack";
+   }
 }
 
 /********************************************

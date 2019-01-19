@@ -1,0 +1,3 @@
+﻿  pch.cpp
+  assignment02.cpp
+c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\assignment02.cpp(309): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?

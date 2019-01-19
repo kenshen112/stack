@@ -306,4 +306,3 @@ void testErrors()
    }
 #endif // TEST4                                                                                                                                                                               
 }
-S
