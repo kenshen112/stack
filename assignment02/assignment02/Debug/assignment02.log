@@ -4,7 +4,9 @@ c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.
   c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(29): note: while compiling class template member function 'custom::stack<std::string>::stack(const custom::stack<std::string> &)'
   c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\assignment02.cpp(245): note: see reference to function template instantiation 'custom::stack<std::string>::stack(const custom::stack<std::string> &)' being compiled
   c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\assignment02.cpp(231): note: see reference to class template instantiation 'custom::stack<std::string>' being compiled
-c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(77): error C2064: term does not evaluate to a function taking 0 arguments
-  c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(74): note: while compiling class template member function 'custom::stack<int> custom::stack<int>::operator =(const custom::stack<int> &)'
-  c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\assignment02.cpp(170): note: see reference to function template instantiation 'custom::stack<int> custom::stack<int>::operator =(const custom::stack<int> &)' being compiled
-  c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\assignment02.cpp(149): note: see reference to class template instantiation 'custom::stack<int>' being compiled
+c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(178): warning C4715: 'custom::stack<int>::resize': not all control paths return a value
+c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(178): warning C4715: 'custom::stack<std::basic_string<char,std::char_traits<char>,std::allocator<char> > >::resize': not all control paths return a value
+c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(178): warning C4715: 'custom::stack<double>::resize': not all control paths return a value
+assignment02.obj : error LNK2019: unresolved external symbol "void __cdecl testInfixToPostfix(void)" (?testInfixToPostfix@@YAXXZ) referenced in function _main
+assignment02.obj : error LNK2019: unresolved external symbol "void __cdecl testInfixToAssembly(void)" (?testInfixToAssembly@@YAXXZ) referenced in function _main
+C:\Users\Kenyon B\source\repos\kenshen112\stack\assignment02\Debug\assignment02.exe : fatal error LNK1120: 2 unresolved externals
