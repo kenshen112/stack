@@ -61,17 +61,16 @@ public:
   void pop();
 
   // Getter
-  void top() const;
+  T top() const;
 
   // Setter
-  void top();
+  T top();
 
   
   /*******************************************
    * Stack :: Assignment
    *******************************************/
-  template <class T>
-  stack <T> & stack <T> :: operator = (const stack <T> & rhs) 
+  stack <T> operator = (const stack <T> & rhs) 
   {
 
     numElements = 0;
@@ -141,18 +140,18 @@ void stack<T>::pop() {
  * Returns the top-most element in the stack.
  *******************************************/
 template <class T> 
-void stack<T>::top() const {
+T stack<T>::top() const {
   if (!empty()) {
-    return data[size() - 1];
+    return data[numElements - 1];
   } else {
     throw "ERROR: Unable to reference the element from an empty stack";
   }
 }
 
 template <class T> 
-void stack<T>::top() {
+T stack<T>::top() {
   if (!empty()) {
-    return data[size() - 1];
+    return data[numElements - 1];
   } else {
     throw "ERROR: Unable to reference the element from an empty stack";
   }
