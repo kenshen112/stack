@@ -15,6 +15,18 @@
 #include "stack.h"     // for STACK
 using namespace std;
 
+//Function to return precedence of operators 
+int orderOfOperations(char c)
+{
+   if (c == '^')
+      return 3;
+   else if (c == '*' || c == '/')
+      return 2;
+   else if (c == '+' || c == '-')
+      return 1;
+   else
+      return -1;
+}
 /*****************************************************
  * CONVERT INFIX TO POSTFIX
  * Convert infix equation "5 + 2" into postifx "5 2 +"
@@ -22,45 +34,59 @@ using namespace std;
 string convertInfixToPostfix(const string & infix)
 {
    custom::stack<char> stack;
+   stack.push('S');
+   int inFixLength = infix.length();
    string postfix;
-   for (int iInfix = 0; iInfix < infix.size() - 1; iInfix++)
+
+   for (int iInfix = 0; iInfix < inFixLength; iInfix++)
    {
-      if ((infix[iInfix] >= 'a' && infix[iInfix] <= 'z') || (infix[iInfix] >= 'A' && infix[iInfix] <= 'Z'))
-      {
+
+      //Operands; numeric and alpha
+      if (isalpha(infix[iInfix]))
          postfix += infix[iInfix];
-      }
-      else if (infix[iInfix]  == '(')
-      {
+
+      //Parentheses '('
+      else if (infix[iInfix] == '(')
+
          stack.push('(');
-      }
+
+      // Parentheses ')'
       else if (infix[iInfix] == ')')
       {
-         
-         while (stack.top() != '(')
+         while (stack.top() != 'S' && stack.top() != '(')
          {
-            postfix += stack.top();
+            char c = stack.top();
             stack.pop();
-         }stack.pop();
+            postfix += c;
+         }
          if (stack.top() == '(')
          {
             char c = stack.top();
             stack.pop();
          }
       }
+
+      //Operator
       else {
-         while (!stack.empty() && infix[iInfix] <= stack.top())
+         while (stack.top() != 'S' && orderOfOperations(infix[iInfix]) <= orderOfOperations(stack.top()))
          {
-            postfix += stack.top();
+            char c = stack.top();
             stack.pop();
-         }stack.push(infix[iInfix]);
+            postfix += c;
+         }
+         stack.push(infix[iInfix]);
       }
+
    }
-   while (!stack.empty())
+   //Pop all the remaining elements from the stack 
+   while (stack.top() != 'S')
    {
-      postfix += stack.top();
+      char c = stack.top();
       stack.pop();
+      postfix += c;
    }
 
+   cout << postfix << endl;
    return postfix;
 }
 
@@ -72,7 +98,7 @@ string convertInfixToPostfix(const string & infix)
 void testInfixToPostfix()
 {
    string input;
-   cout << "Enter an infix equation.  Type \"quit\" when done.\n";
+   cout << "Enter an infix equation.  Type \"quit\" when done.\S";
    
    do
    {
@@ -80,7 +106,7 @@ void testInfixToPostfix()
       if (cin.fail())
       {
          cin.clear();
-         cin.ignore(256, '\n');
+         cin.ignore(256, '\S');
       }
       
       // prompt for infix
@@ -119,7 +145,7 @@ string convertPostfixToAssembly(const string & postfix)
 void testInfixToAssembly()
 {
    string input;
-   cout << "Enter an infix equation.  Type \"quit\" when done.\n";
+   cout << "Enter an infix equation.  Type \"quit\" when done.\S";
 
    do
    {
@@ -127,7 +153,7 @@ void testInfixToAssembly()
       if (cin.fail())
       {
          cin.clear();
-         cin.ignore(256, '\n');
+         cin.ignore(256, '\S');
       }
       
       // prompt for infix

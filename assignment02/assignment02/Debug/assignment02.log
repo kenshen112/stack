@@ -1,4 +1,3 @@
 ﻿  infix.cpp
-c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\infix.cpp(27): warning C4018: '<': signed/unsigned mismatch
 c:\users\kenyon b\source\repos\kenshen112\stack\assignment02\assignment02\stack.h(190): warning C4715: 'custom::stack<char>::resize': not all control paths return a value
   assignment02.vcxproj -> C:\Users\Kenyon B\source\repos\kenshen112\stack\assignment02\Debug\assignment02.exe
