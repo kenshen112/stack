@@ -34,21 +34,24 @@ int orderOfOperations(char c)
 string convertInfixToPostfix(const string & infix)
 {
    custom::stack<char> stack;
+
+   //flag marker for start of stack
    stack.push('S');
-   int inFixLength = infix.length();
    string postfix;
 
-   for (int iInfix = 0; iInfix < inFixLength; iInfix++)
+   for (int iInfix = 0; iInfix < infix.length(); iInfix++)
    {
-
       //Operands; numeric and alpha
       if (isalpha(infix[iInfix]))
+      {
          postfix += infix[iInfix];
+      }
 
       //Parentheses '('
       else if (infix[iInfix] == '(')
-
+      {
          stack.push('(');
+      }
 
       // Parentheses ')'
       else if (infix[iInfix] == ')')
@@ -78,7 +81,7 @@ string convertInfixToPostfix(const string & infix)
       }
 
    }
-   //Pop all the remaining elements from the stack 
+   //Pop remaining elements from the stack 
    while (stack.top() != 'S')
    {
       char c = stack.top();
