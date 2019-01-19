@@ -70,11 +70,10 @@ public:
   /*******************************************
    * Stack :: Assignment
    *******************************************/
-  stack <T> operator = (const stack <T> & rhs) 
+  stack <T> & operator = (const stack <T> & rhs) 
   {
-
     numElements = 0;
-    if (rhs.size() > rhs.numCapacity()) {
+    if (rhs.size() > rhs.capacity()) {
       resize(rhs.size());
     }
     numElements = rhs.size();
