@@ -32,5 +32,8 @@
     <ClCompile Include="assignment02.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="infix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

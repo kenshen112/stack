@@ -1,6 +1,8 @@
 #ifndef STACK_H
 #define STACK_H
-
+#include <iostream>
+#include<string>
+using std::cout;
 namespace custom {
 
 template <class T> class stack {
@@ -21,8 +23,8 @@ public:
 
   stack(int c) 
   {
-    numElements = 0;
-    numCapacity = c;
+    numElements = c;
+    numCapacity = 0;
     data = new T[numCapacity];
   }
 
@@ -50,7 +52,8 @@ public:
   //stack <T> & stack <T> :: operator =(const stack <T> & rhs) throw(const char *);
   
   int size() const { return numElements; }
-  int capacity() const { return numCapacity; }
+  int capacity() const {return numCapacity; }
+
 
   bool empty();
 
@@ -76,7 +79,7 @@ public:
   if (numElements != rhs.numElements){
         resize(rhs.size());
     }
-    
+
     numElements = rhs.size();
 
     for (int i = 0; i < numElements - 1; i++) {
@@ -113,12 +116,22 @@ bool stack<T>::empty() {
  * thereby increasing size by one Const T
  *******************************************/
 
-template <class T> 
-void stack<T>::push(const T &element) {
-  if (size() == capacity()) {
+template <class T>
+void stack<T>::push(const T & element) 
+{
+   cout << strlen(c_str(element)) << "\n";
+   //Checks if stack is empty. If it is it sets the capacity to 1
+   if (empty() == true)
+   {
+      numCapacity = 1;
+      data = new T[numElements];
+   }
+
+   if (size() == capacity()) {
     resize(capacity() * 2);
   }
   data[numElements++] = element;
+   //T(data, numElements);
 }
 
 /********************************************
