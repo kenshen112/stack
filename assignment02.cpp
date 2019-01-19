@@ -1,205 +1,309 @@
-#ifndef STACK_H
-#define STACK_H
+***********************************************************************                                                                                                                      
+* Program:                                                                                                                                                                                    
+*    Assignment 02, Stack                                                                                                                                                                     
+*    Brother Helfrich, CS 235                                                                                                                                                                 
+* Author:                                                                                                                                                                                     
+*    Br. Helfrich                                                                                                                                                                             
+* Summary:                                                                                                                                                                                    
+*    This is a driver program to exercise the Stack class.  When you                                                                                                                          
+*    submit your program, this should not be changed in any way.  That being                                                                                                                  
+*    said, you may need to modify this once or twice to get it to work.                                                                                                                       
+************************************************************************/
 
-#include <cassert>
+#include <iostream>    // for CIN and COUT                                                                                                                                                    
+#include <string>      //                                                                                                                                                                     
+#include "stack.h"     // your Stack class should be in stack.h                                                                                                                               
+#include "infix.h"     // for testInfixToPostfix() and testInfixToAssembly()                                                                                                                  
 
-template <class T>
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
+using std::ostream;
+using std::ios;
+//using namespace std;                                                                                                                                                                        
+using namespace custom;
 
-class Stack
+// prototypes for our four test functions                                                                                                                                                     
+void testSimple();
+void testPush();
+void testPop();
+void testErrors();
+
+// To get your program to compile, you might need to comment out a few                                                                                                                        
+// of these. The idea is to help you avoid too many compile errors at once.                                                                                                                   
+// I suggest first commenting out all of these tests, then try to use only                                                                                                                    
+// TEST1.  Then, when TEST1 works, try TEST2 and so on.                                                                                                                                       
+#define TEST1   // for testSimple()                                                                                                                                                           
+#define TEST2   // for testPush()                                                                                                                                                             
+#define TEST3   // for testPop()                                                                                                                                                              
+#define TEST4   // for testErrors()                                                                                                                                                           
+
+/**********************************************************************                                                                                                                       
+ * MAIN                                                                                                                                                                                       
+ * This is just a simple menu to launch a collection of tests                                                                                                                                 
+ ***********************************************************************/
+int main()
 {
-  private:
-   int  numElements;
-   int cap;
-   T *array;
-   
-  public:
+   // menu                                                                                                                                                                                    
+   cout << "Select the test you want to run:\n";
+   cout << "\t1. Just create and destroy a Stack.\n";
+   cout << "\t2. The above plus push items onto the Stack.\n";
+   cout << "\t3. The above plus pop items off the stack.\n";
+   cout << "\t4. The above plus exercise the error handling.\n";
+   cout << "\ta. Infix to Postfix.\n";
+   cout << "\tb. Extra credit: Infix to Assembly.\n";
 
-   Stack()
-   { 
-      numElements = 0;
-      cap = 0;
-      array = new T[cap];      
-   }
-   
-   Stack(int c)
+   // select                                                                                                                                                                                  
+   char choice;
+   cout << "> ";
+   cin  >> choice;
+   switch (choice)
    {
-      numElements = 0;
-      cap = c;
-      array = new T[cap];      
+      case 'a':
+         cin.ignore();
+         testInfixToPostfix();
+         break;
+      case 'b':
+         cin.ignore();
+         testInfixToAssembly();
+         break;
+      case '1':
+         testSimple();
+         cout << "Test 1 complete\n";
+         break;
+      case '2':
+         testPush();
+         cout << "Test 2 complete\n";
+         break;
+      case '3':
+         testPop();
+         cout << "Test 3 complete\n";
+ break;
+      case '4':
+         testErrors();
+         cout << "Test 4 complete\n";
+         break;
+      default:
+         cout << "Unrecognized command, exiting...\n";
    }
 
-   Stack(const Stack <T> & rhs) throw (const char *);
-   
-   int size() const
-   {
-      return numElements;
-   }
+   return 0;
+}
 
-   T& top()
+/*******************************************                                                                                                                                                  
+ * TEST SIMPLE                                                                                                                                                                                
+ * Very simple test for a stack: create and destroy                                                                                                                                           
+ ******************************************/
+void testSimple()
+{
+#ifdef TEST1
+   try
    {
-      if (numElements == 0 || numElements == cap || cap == 0)
+      // Test 1.a: bool stack with default constructor                                                                                                                                        
+      cout << "Create a bool Stack using default constructor\n";
+      stack <bool> s1;
+      cout << "\tSize:     " << s1.size()                   << endl;
+      cout << "\tEmpty?    " << (s1.empty() ? "Yes" : "No") << endl;
+
+      // Test 1.b: double Stack with non-default constructor                                                                                                                                  
+      cout << "Create a double Stack using the non-default constructor\n";
+      stack <double> s2(10 /*capacity*/);
+cout << "\tSize:     " << s2.size()                   << endl;
+      cout << "\tEmpty?    " << (s2.empty() ? "Yes" : "No") << endl;
+
+      // Test 1.c: copy the Stack using the copy constructor                                                                                                                                  
       {
-         throw "ERROR: Unable to reference the element from an empty Stack";
+         cout << "Create a double Stack using the copy constructor\n";
+         stack <double> s3(s2);
+         cout << "\tSize:     " << s3.size()                   << endl;
+         cout << "\tEmpty?    " << (s3.empty() ? "Yes" : "No") << endl;
       }
 
-      else
-      {
-         return array[cap];
-      }
+      // Test 1.d: copy the Stack using the assignment operator                                                                                                                               
+      cout << "Copy a double Stack using the assignment operator\n";
+      stack <double> s4(2);
+      s4 = s2;
+      cout << "\tSize:     " << s4.size()                   << endl;
+      cout << "\tEmpty?    " << (s4.empty() ? "Yes" : "No") << endl;
    }
-   
-   int capacity() const
+   catch (const char * sError)
    {
-      return cap;
+      cout << sError << endl;
    }
-   
-   Stack& operator= (const Stack& rhs) throw(const char*)
+#endif //TEST1                                                                                                                                                                                
+}
+
+/*******************************************                                                                                                                                                  
+ * TEST PUSH                                                                                                                                                                                  
+ * Add a whole bunch of items to the stack.  This will                                                                                                                                        
+ * test the stack growing algorithm. It requires                                                                                                                                              
+ * stack::push           
+  *****************************************/
+void testPush()
+{
+#ifdef TEST2
+   try
    {
-      if (this != &rhs)
+      // create                                                                                                                                                                               
+      stack <int> s;
+
       {
-         if (cap != rhs.cap)
+         stack <int> sTemp;
+         cout << "Enter numbers, type 0 when done\n";
+         int number;
+         do
          {
-            delete [] array;
-
-            // copy over the capacity and size
-            //assert(rhs.cap >= 0 && rhs.cap <= rhs.numElements);
-            cap = rhs.cap;
-            numElements = rhs.numElements;
-            
-            assert(rhs.numElements >= 0);
-
-            
-      // do nothing if there is nothing to do
-      if (rhs.numElements == 0)
-      {
-         numElements = 0;
-         cap = 0;
-         array = NULL;
-      }
-
-      // attempt to allocate
-      try
-      {
-         array = new T[rhs.numElements];
-      }
-      catch (std::bad_alloc)
-      {
-         throw "ERROR: Unable to allocate buffer";
-      }
+            cout << "\t> ";
+            cin  >> number;
+            if (number)
+               sTemp.push(number);
          }
+         while (number);
 
-      // copy the items over one at a time using the assignment operator
-      for (int i = 0; i < cap; i++)
-         array[i] = rhs.array[i];
+         // display how big it is                                                                                                                                                             
+         cout << "After filling the Stack, the size is:\n";
+         cout << "\tSize:     " << sTemp.size() << endl;
+         cout << "\tEmpty?    " << (sTemp.empty() ? "Yes" : "No") << endl;
 
-      // the rest needs to be filled with the default value for T
-      for (int i = cap; i < numElements; i++)
-         array[i] = T();
+         // copy the stack to s and delete sTemp                                                                                                                                              
+         s = sTemp;
+         while (!sTemp.empty())
+ sTemp.pop();
+         sTemp.push(4);
       }
-      
-      return *this;
+
+      // display how big it is                                                                                                                                                                
+      cout << "After copying the Stack to a new Stack, the size is:\n";
+      cout << "\tSize:     " << s.size() << endl;
+      cout << "\tEmpty?    " << (s.empty() ? "Yes" : "No") << endl;
    }
-
-   void push(const T& item)
-   {  
-
-// do nothing if there is nothing to do
-      if (numElements == 0)
-      {
-         delete [] array;
-         numElements++;
-         array = new T[numElements];
-         cap++;
-         array[cap] = item;
-      }
-     else if (cap < numElements - 1)
-      {
-         cap++;
-         array = new T[cap];
-         array[cap] = item;
-      }
-      if(numElements == cap || cap > numElements)
-      {
-         numElements ++;
-         array = new T[numElements];
-         array[numElements] = item;
-      }   
-      else
-      {
-         cap++;
-         array = new T[cap];
-         array[cap] = item;
-      }
-
-   }
-
-   void pop()
+   catch (const char * sError)
    {
-      if (numElements == 0 || numElements == cap)
-      {
-         throw "ERROR: Unable to pop from an empty Stack";
-      }
-         
-      array[cap] = T();
-      cap--;
-   }
-   
-   int empty()
-   {
-      if (numElements == 0)
-      {
-         return true;
-      }
-
-      else
-      {
-         return false;
-      }
+      cout << sError << endl;
    }
 
-   ~Stack()
-   {
-      delete [] array;
-   }
-};
+#endif // TEST2                                                                                                                                                                               
+}
 
-
+#ifdef TEST3
+/*******************************************                                                                                                                                                  
+ * DISPLAY                                                                                                                                                                                    
+ * Display the contents of the stack. We will                                                                                                                                                 
+ * assume that T is a data-type that has the                                                                                                                                                  
+ * insertion operator defined.                                                                                                                                                                
+ *******************************************/
 template <class T>
-Stack <T> :: Stack(const Stack <T> & rhs) throw (const char *)
+ostream & operator << (ostream & out, stack <T> rhs) throw (const char *)
 {
-   assert(rhs.numElements >= 0);
-
-   // do nothing if there is nothing to do
-   if (rhs.numElements == 0)
-   {
-      numElements = 0;
-      cap = 0;
-      array = NULL;
-      return;
+   // we need to make a copy of the stack that is backwards                                                                                                                                   
+   stack <T> backwards;
+   while (!rhs.empty())
+{
+      backwards.push(rhs.top());
+      rhs.pop();
    }
 
-   // attempt to allocate
-      try
+   // now we will display this one                                                                                                                                                            
+   out << "{ ";
+   while (!backwards.empty())
+   {
+      out << backwards.top() << ' ';
+      backwards.pop();
+   }
+   out << '}';
+
+   return out;
+}
+#endif // TEST3                                                                                                                                                                               
+
+/*******************************************                                                                                                                                                  
+ * TEST POP                                                                                                                                                                                   
+ * We will test both stack::pop() and stack::top()                                                                                                                                            
+ * to make sure the stack looks the way we expect                                                                                                                                             
+ * it to look.                                                                                                                                                                                
+ ******************************************/
+void testPop()
+{
+#ifdef TEST3
+   // create                                                                                                                                                                                  
+   cout << "Create a string Stack with the default constructor\n";
+   stack <string> s;
+// instructions                                                                                                                                                                            
+   cout << "\tTo add the word \"dog\", type +dog\n";
+   cout << "\tTo pop the word off the stack, type -\n";
+   cout << "\tTo see the top word, type *\n";
+   cout << "\tTo quit, type !\n";
+
+   // interact                                                                                                                                                                                
+   char instruction;
+   string word;
+   try
+   {
+      do
       {
-         array = new T[rhs.numElements];
+         cout << "\t" << s << " > ";
+         cin  >> instruction;
+         switch (instruction)
+         {
+            case '+':
+               cin >> word;
+               s.push(word);
+               break;
+            case '-':
+               s.pop();
+               break;
+            case '*':
+               cout << s.top() << endl;
+               break;
+            case '!':
+               cout << "\tSize:     " << s.size() << endl;
+  }
       }
-      catch (std::bad_alloc)
-      {
-         throw "ERROR: Unable to allocate buffer";
-      }
+      while (instruction != '!');
+   }
+   catch (const char * error)
+   {
+      cout << error << endl;
+   }
+#endif // TEST3                                                                                                                                                                               
+}
 
-      // copy over the capacity and size
-      assert(rhs.cap >= 0 && rhs.cap <= rhs.numElements);
-      numElements = rhs.numElements;
-      cap = rhs.cap;
+/*******************************************                                                                                                                                                  
+ * TEST ERRORS                                                                                                                                                                                
+ * Numerous error conditions will be tested                                                                                                                                                   
+ * here, including bogus popping and the such                                                                                                                                                 
+ *******************************************/
+void testErrors()
+{
+#ifdef TEST4
+   // create                                                                                                                                                                                  
+   stack <char> s;
 
-      // copy the items over one at a time using the assignment operator
-      for (int i = 0; i < cap; i++)
-         array[i] = rhs.array[i];
+   // test using Top with an empty stack                                                                                                                                                      
+   try
+   {
+      s.top();
+ cout << "BUG! We should not be able to top() with an empty Stack!\n";
+   }
+   catch (const char * error)
+   {S
+      cout << "\tStack::top() error message correctly caught.\n"
+           << "\t\"" << error << "\"\n";
+   }
 
-      // the rest needs to be filled with the default value for T
-      for (int i = cap; i < numElements; i++)
-         array[i] = T();
-}   
-
-#endif /* STACK_H */
+   // test using Pop with an empty stack                                                                                                                                                      
+   try
+   {
+      s.pop();
+      cout << "\tCorrect! When we pop() with an empty stack, "
+           << "nothing bad happens.\n";
+   }
+   catch (const char * error)
+   {
+      cout << "\tStack::pop() exception was thrown.\n"
+           << "\t\"" << error << "\"\n";
+   }
+#endif // TEST4                                                                                                                                                                               
+}
+S

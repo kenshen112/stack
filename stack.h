@@ -12,11 +12,36 @@ private:
   bool isEmpty;
 
 public:
-  Stack();
+  Stack()
+  {
+  numElements = 0;
+  cap = 0;
+  array = new T[cap];
+ }
 
-  Stack(int numCap);
+Stack(int c) 
+{
+  numElements = 0;
+  cap = c;
+  array = new T[cap];
+}
 
-  Stack(Stack &rhs);
+Stack(const Stack<T> &rhs) throw(const char *) {
+  try {
+    if (maxSize != rhs.maxSize) {
+      data = new T[rhs.maxSize];
+    }
+
+    for (int i = 0; i < rhs.size(); i++) {
+      data[i] = rhs.data[i];
+    }
+    maxSize = rhs.maxSize;
+    position = rhs.position;
+  } catch (std::bad_alloc &er) {
+    throw(" ERROR: Unable to allocate a new buffer for vector");
+    exit(1);
+  }
+}
 
   // Assignment operator
   Stack<T> &Stack<T>::operator=(const Stack<T> &rhs) throw(const char *);
@@ -44,35 +69,6 @@ public:
   ~Stack();
 };
 
-template <class T> 
-Stack <T> Stack() {
-  numElements = 0;
-  cap = 0;
-  array = new T[cap];
-}
-
-template <class T> Stack<T> Stack(int c) {
-  numElements = 0;
-  cap = c;
-  array = new T[cap];
-}
-
-template <class T> Stack<T> Stack(const Stack<T> &rhs) throw(const char *) {
-  try {
-    if (maxSize != rhs.maxSize) {
-      data = new T[rhs.maxSize];
-    }
-
-    for (int i = 0; i < rhs.size(); i++) {
-      data[i] = rhs.data[i];
-    }
-    maxSize = rhs.maxSize;
-    position = rhs.position;
-  } catch (std::bad_alloc &er) {
-    throw(" ERROR: Unable to allocate a new buffer for vector");
-    exit(1);
-  }
-}
 
 int size() const { return numElements; }
 
