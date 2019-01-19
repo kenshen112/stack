@@ -61,17 +61,17 @@ public:
   void pop();
 
   // Getter
-  void top() const throw(const char *);
+  void top() const;
 
   // Setter
-  void top() throw(const char *);
+  void top();
 
   
   /*******************************************
    * Stack :: Assignment
    *******************************************/
   template <class T>
-  stack<T> &stack<T>::operator=(const stack<T> &rhs) 
+  stack <T> & stack <T> :: operator = (const stack <T> & rhs) 
   {
 
     numElements = 0;
@@ -93,11 +93,6 @@ public:
   }
 };
 
-template <class T> 
-int stack<T>::size() const 
-{ 
-  return numElements; 
-}
 
 /********************************************
  * Stack : EMPTY
@@ -121,7 +116,7 @@ bool stack<T>::empty() {
 
 template <class T> 
 void stack<T>::push(const T &element) {
-  if (size() = capacity()) {
+  if (size() == capacity()) {
     resize(capacity() * 2);
   }
   data[numElements++] = element;
