@@ -152,7 +152,7 @@ T stack<T>::top() const {
   if (!empty()) {
     return data[numElements - 1];
   } else {
-    throw "ERROR: Unable to reference the element from an empty stack";
+    throw "ERROR: Unable to reference the element from an empty Stack";
   }
 }
 
@@ -165,7 +165,7 @@ T stack<T>::top() {
   if (!empty()) {
     return data[numElements - 1];
   } else {
-    throw "ERROR: Unable to reference the element from an empty stack";
+    throw "ERROR: Unable to reference the element from an empty Stack";
   }
 }
 
@@ -185,7 +185,7 @@ int stack<T>::resize(int capacityNew) {
     data = dataNew;
     numCapacity = capacityNew;
   } catch (std::bad_alloc) {
-    throw "ERROR: Unable to allocate new buffer for vector";
+    throw "ERROR: Unable to allocate new buffer for Stack";
   }
 };
 

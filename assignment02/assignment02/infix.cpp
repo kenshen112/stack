@@ -88,8 +88,6 @@ string convertInfixToPostfix(const string & infix)
       stack.pop();
       postfix += c;
    }
-
-   cout << postfix << endl;
    return postfix;
 }
 
@@ -101,7 +99,7 @@ string convertInfixToPostfix(const string & infix)
 void testInfixToPostfix()
 {
    string input;
-   cout << "Enter an infix equation.  Type \"quit\" when done.\S";
+   cout << "Enter an infix equation.  Type \"quit\" when done.\n";
    
    do
    {
@@ -109,7 +107,7 @@ void testInfixToPostfix()
       if (cin.fail())
       {
          cin.clear();
-         cin.ignore(256, '\S');
+         cin.ignore(256, '\n');
       }
       
       // prompt for infix
@@ -148,7 +146,7 @@ string convertPostfixToAssembly(const string & postfix)
 void testInfixToAssembly()
 {
    string input;
-   cout << "Enter an infix equation.  Type \"quit\" when done.\S";
+   cout << "Enter an infix equation.  Type \"quit\" when done.\n";
 
    do
    {
@@ -156,7 +154,7 @@ void testInfixToAssembly()
       if (cin.fail())
       {
          cin.clear();
-         cin.ignore(256, '\S');
+         cin.ignore(256, '\n');
       }
       
       // prompt for infix
