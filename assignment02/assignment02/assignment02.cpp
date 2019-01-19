@@ -287,8 +287,8 @@ void testErrors()
  cout << "BUG! We should not be able to top() with an empty Stack!\n";
    }
    catch (const char * error)
-   {S
-      cout << "\tStack::top() error message correctly caught.\n"
+   {
+      std::cout << "\tStack::top() error message correctly caught.\n"
            << "\t\"" << error << "\"\n";
    }
 
