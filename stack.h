@@ -6,9 +6,10 @@ template <class T>
 class Stack {
 
 private:
-  T *data;
+  T *data; //this needs to be an array like data[].
   int numElements;
   int numCapacity;
+  bool isEmpty;
 
 public:
   Stack();
@@ -17,7 +18,8 @@ public:
 
   Stack(Stack &rhs);
 
-  void assign(Stack &rhs) {}
+  //Assignment operator
+  Stack <T> & Stack <T> :: operator = (const Stack <T> & rhs) throw (const char *);
 
   int size();
 
@@ -27,9 +29,16 @@ public:
 
   void clear();
 
-  void push(T data);
+  void push(T element);
+  //I think push should look like this void push(const T & element). push is looking for an int
 
   void pop();
+
+  //Getter
+  const T & stack <T> ::top() const throw (const char *);
+
+  //Setter
+  T & stack <T> ::top()             throw (const char *);
 
   ~Stack();
 };
@@ -39,16 +48,6 @@ public:
 *******************************************/
 template <class T>
 Stack <T> & Stack <T> :: operator = (const Stack <T> & rhs) throw (const char *)
-{
-
-}
-
-/*******************************************
-* Stack :: Assignment
-*******************************************/
-template <class T>
-Stack <T> & Stack <T> :: operator = (const Stack <T> & rhs)
-throw (const char *)
 {
 
    numElements = 0;
@@ -85,6 +84,53 @@ bool vector <T> ::empty()
 }
 
 /********************************************
+* Stack : PUSH
+* Adds an element to the top of the stack, 
+* thereby increasing size by one.
+*******************************************/
+void push(T data)
+{
+   if (size() = capacity())
+   {
+      resize(capacity() * 2);
+   }
+   data[numElements++] = element;
+}
+
+/********************************************
+* Stack : POP
+* Remove the top-most element in the stack, 
+* thereby reducing the size by one.
+*******************************************/
+void pop()
+{
+   if(!empty())
+   {
+      --numElements;
+   }
+   else
+   {
+      return;
+   }
+}
+
+/********************************************
+* Stack : TOP : getter
+* Returns the top-most element in the stack.
+*******************************************/
+const T & stack <T> ::top() const throw (const char *);
+{
+   if (!empty())
+   {
+      return data[size() - 1];
+   }
+   else
+   {
+      throw "ERROR: Unable to reference the element from an empty stack";
+   }
+}
+
+/********************************************
 * Stack : RESIZE
 * resizes the vector buffer
 *******************************************/
@@ -105,7 +151,7 @@ int Stack <T> ::resize(int capacityNew)
    }
    catch (std::bad_alloc)
    {
-      throw "ERROR: Unable to allocate buffer for vector";
+      throw "ERROR: Unable to allocate new buffer for vector";
    }
 }
 
