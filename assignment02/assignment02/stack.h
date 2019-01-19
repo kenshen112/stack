@@ -59,8 +59,6 @@ stack(const Stack<T> &rhs) throw(const char *) {
   void clear();
 
   void push(const T & element);
-  // I think push should look like this void push(const T & element). push is
-  // looking for an int
 
   void pop();
 
@@ -68,7 +66,7 @@ stack(const Stack<T> &rhs) throw(const char *) {
   void stack<T>::top() const throw(const char *);
 
   // Setter
-  void T & stack<T>::top() throw(const char *);
+  void stack<T>::top() throw(const char *);
   /*******************************************
  * Stack :: Assignment
  *******************************************/
@@ -87,7 +85,7 @@ stack(const Stack<T> &rhs) throw(const char *) {
      // Not sure on this one
      return *this;
   }
-
+  int stack<T>::resize(int capacityNew);
   ~stack();
 };
 
@@ -152,7 +150,8 @@ void stack<T>::top() const throw(const char *)
   }
 }
 
-void T & stack<T>::top() throw(const char *)
+template <class T>
+void stack<T>::top() throw(const char *)
 {
    if (!empty()) 
    {
@@ -169,7 +168,7 @@ void T & stack<T>::top() throw(const char *)
  * resizes the vector buffer
  *******************************************/
 template <class T> 
-int Stack<T>::resize(int capacityNew) {
+int stack<T>::resize(int capacityNew) {
   try {
     T *dataNew = new T[capacityNew];
 
