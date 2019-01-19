@@ -46,13 +46,10 @@ public:
   }
 
   // Assignment operator
-  // stack <T> & stack <T> :: operator = (const stack <T> & rhs) throw(const
-  // char *);
-  // stack <T> & stack <T> :: operator =(const stack <T> & rhs) throw(const char
-  // *);
-
-  int size() const;
-
+   //stack <T> & stack <T> :: operator = (const stack <T> & rhs) throw(const char *);
+  //stack <T> & stack <T> :: operator =(const stack <T> & rhs) throw(const char *);
+  
+  int size() const { return numElements; }
   int capacity();
 
   bool empty();
@@ -64,10 +61,12 @@ public:
   void pop();
 
   // Getter
-  void stack<T>::top() const;
+  void top() const throw(const char *);
 
   // Setter
-  void stack<T>::top();
+  void top() throw(const char *);
+
+  
   /*******************************************
    * Stack :: Assignment
    *******************************************/
@@ -87,15 +86,10 @@ public:
     // Not sure on this one
     return *this;
   }
-  
-  int stack<T>::resize(int capacityNew);
+  int resize(int capacityNew);
+  ~stack(){
 
-  ~stack() {
-    data = nullptr;
-    delete[] data;
-
-    numElements = 0;
-    numCapacity = 0;
+   clear();
   }
 };
 
@@ -188,6 +182,18 @@ int stack<T>::resize(int capacityNew) {
     throw "ERROR: Unable to allocate new buffer for vector";
   }
 };
+
+template <class T>
+void stack <T> :: clear()
+{
+    data = nullptr;
+    delete[] data;
+    numElements = 0;
+    numCapacity = 0;
+}
+
+
+
 } // namespace custom
 
 #endif /* STACK_H */
