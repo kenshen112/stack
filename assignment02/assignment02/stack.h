@@ -1,3 +1,11 @@
+/***********************************************************************
+* Header:
+*    STACK
+* Summary:
+*    A custom Stack class
+* Author
+*    Kenyon Bunker and Tim O'Barr
+************************************************************************/
 #ifndef STACK_H
 #define STACK_H
 
@@ -6,29 +14,35 @@ namespace custom {
 template <class T> class stack {
 
 private:
-  T *data;
-  int numElements;
-  int numCapacity;
-  bool isEmpty;
+   T *data;
+   int numElements;
+   int numCapacity;
+   bool isEmpty;
 
 public:
-  stack() 
-  {
-    numElements = 0;
-    numCapacity = 0;
-    data = new T[numCapacity];
-  }
+   
+   //Constructors
+   //Default Cosntructor
+   stack() 
+   {
+      numElements = 0;
+      numCapacity = 0;
+      data = new T[numCapacity];
+   }
 
-  stack(int c) 
-  {
-    numElements = c;
-    numCapacity = 0;
-    data = new T[numCapacity];
-  }
+   //Non-default cosntructor
+   stack(int c) 
+   {
+      numElements = c;
+      numCapacity = 0;
+      data = new T[numCapacity];
+   }
 
-  stack(const stack<T> &rhs)  
-  {
-    try {
+   //Copy Constructor
+   stack(const stack<T> &rhs)  
+   {
+      try 
+      {
       if (numElements != rhs.numElements) {
         data = new T[rhs.numElements];
       }
@@ -39,38 +53,26 @@ public:
 
       numCapacity = rhs.numCapacity;
       numElements = rhs.numElements;
-    } catch (std::bad_alloc &er) {
-      throw(" ERROR: Unable to allocate a new buffer for vector");
-      exit(1);
-    }
-  }
-
-  // Assignment operator
-   //stack <T> & stack <T> :: operator = (const stack <T> & rhs) throw(const char *);
-  //stack <T> & stack <T> :: operator =(const stack <T> & rhs) throw(const char *);
+      } catch (std::bad_alloc &er) {
+         throw(" ERROR: Unable to allocate a new buffer for vector");
+         exit(1);
+      }
+   }
   
+   //Function Prototypes
   int size() const { return numElements; }
   int capacity() const {return numCapacity; }
-
-
   bool empty();
-
   void clear();
-
   void push(const T &element);
-
   void pop();
-
-  // Getter
+  int resize(int capacityNew);
+  // Top Getter
   T top() const;
-
-  // Setter
+  // Top Setter
   T top();
 
-  
-  /*******************************************
-   * Stack :: Assignment
-   *******************************************/
+  //assignment operator
   stack <T> & operator = (const stack <T> & rhs) 
   {
     numElements = 0;
@@ -83,16 +85,16 @@ public:
     for (int i = 0; i < numElements - 1; i++) {
       data[i] = rhs.data[i];
     }
-    // Not sure on this one
+
     return *this;
   }
-  int resize(int capacityNew);
-  ~stack(){
 
+  //Destructor
+  ~stack()
+  {
    clear();
   }
 };
-
 
 /********************************************
  * Stack : EMPTY
@@ -111,9 +113,8 @@ bool stack<T>::empty() {
 /********************************************
  * Stack : PUSH
  * Adds an element to the top of the stack,
- * thereby increasing size by one Const T
+ * thereby increasing size by one
  *******************************************/
-
 template <class T> 
 void stack<T>::push(const T &element) {
 
@@ -155,6 +156,10 @@ T stack<T>::top() const {
   }
 }
 
+/********************************************
+ * Stack : TOP : setter
+ * Returns the top-most element in the stack.
+ *******************************************/
 template <class T> 
 T stack<T>::top() {
   if (!empty()) {
@@ -166,7 +171,7 @@ T stack<T>::top() {
 
 /********************************************
  * Stack : RESIZE
- * resizes the vector buffer
+ * resizes the stack buffer
  *******************************************/
 template <class T> 
 int stack<T>::resize(int capacityNew) {
@@ -184,6 +189,10 @@ int stack<T>::resize(int capacityNew) {
   }
 };
 
+/********************************************
+ * Stack : CLEAR
+ * frees stack memory
+ *******************************************/
 template <class T>
 void stack <T> :: clear()
 {
@@ -192,8 +201,6 @@ void stack <T> :: clear()
     numElements = 0;
     numCapacity = 0;
 }
-
-
 
 } // namespace custom
 
