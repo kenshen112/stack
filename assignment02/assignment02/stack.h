@@ -1,54 +1,55 @@
 #ifndef STACK_H
 #define STACK_H
 
-namespace custom
-{
+namespace custom {
 
-template <class T>
-class stack {
+template <class T> class stack {
 
 private:
-  T *data; 
+  T *data;
   int numElements;
   int numCapacity;
   bool isEmpty;
 
 public:
-  stack()
+  stack() 
   {
-  numElements = 0;
-  numCapacity = 0;
-  data = new T[numCapacity];
- }
-
-stack(int c) 
-{
-  numElements = 0;
-  numCapacity = c;
-  data = new T[numCapacity];
-}
-
-stack(const Stack<T> &rhs) throw(const char *) {
-  try {
-    if (numElements != rhs.numElements) {
-      data = new T[rhs.numElements];
-    }
-
-    for (int i = 0; i < rhs.size(); i++) {
-      data[i] = rhs.data[i];
-    }
-
-    numCapacity = rhs.numCapacity;
-    numElements = rhs.numElements;
-  } catch (std::bad_alloc &er) {
-    throw(" ERROR: Unable to allocate a new buffer for vector");
-    exit(1);
+    numElements = 0;
+    numCapacity = 0;
+    data = new T[numCapacity];
   }
-}
+
+  stack(int c) 
+  {
+    numElements = 0;
+    numCapacity = c;
+    data = new T[numCapacity];
+  }
+
+  stack(const stack<T> &rhs)  
+  {
+    try {
+      if (numElements != rhs.numElements) {
+        data = new T[rhs.numElements];
+      }
+
+      for (int i = 0; i < rhs.size(); i++) {
+        data[i] = rhs.data[i];
+      }
+
+      numCapacity = rhs.numCapacity;
+      numElements = rhs.numElements;
+    } catch (std::bad_alloc &er) {
+      throw(" ERROR: Unable to allocate a new buffer for vector");
+      exit(1);
+    }
+  }
 
   // Assignment operator
-   //stack <T> & stack <T> :: operator = (const stack <T> & rhs) throw(const char *);
-  //stack <T> & stack <T> :: operator =(const stack <T> & rhs) throw(const char *);
+  // stack <T> & stack <T> :: operator = (const stack <T> & rhs) throw(const
+  // char *);
+  // stack <T> & stack <T> :: operator =(const stack <T> & rhs) throw(const char
+  // *);
 
   int size() const;
 
@@ -58,41 +59,51 @@ stack(const Stack<T> &rhs) throw(const char *) {
 
   void clear();
 
-  void push(const T & element);
+  void push(const T &element);
 
   void pop();
 
   // Getter
-  void stack<T>::top() const throw(const char *);
+  void stack<T>::top() const;
 
   // Setter
-  void stack<T>::top() throw(const char *);
+  void stack<T>::top();
   /*******************************************
- * Stack :: Assignment
- *******************************************/
+   * Stack :: Assignment
+   *******************************************/
   template <class T>
-  stack <T> & stack <T> :: operator = (const stack <T> & rhs) throw(const char *) {
+  stack<T> &stack<T>::operator=(const stack<T> &rhs) 
+  {
 
-     numElements = 0;
-     if (rhs.size() > rhs.numCapacity()) {
-        resize(rhs.size());
-     }
-     numElements = rhs.size();
+    numElements = 0;
+    if (rhs.size() > rhs.numCapacity()) {
+      resize(rhs.size());
+    }
+    numElements = rhs.size();
 
-     for (int i = 0; i < numElements - 1; i++) {
-        data[i] = rhs.data[i];
-     }
-     // Not sure on this one
-     return *this;
+    for (int i = 0; i < numElements - 1; i++) {
+      data[i] = rhs.data[i];
+    }
+    // Not sure on this one
+    return *this;
   }
+  
   int stack<T>::resize(int capacityNew);
-  ~stack();
+
+  ~stack() {
+    data = nullptr;
+    delete[] data;
+
+    numElements = 0;
+    numCapacity = 0;
+  }
 };
 
-template <class T>
-int stack <T> :: size() const { return numElements; }
-
-
+template <class T> 
+int stack<T>::size() const 
+{ 
+  return numElements; 
+}
 
 /********************************************
  * Stack : EMPTY
@@ -114,8 +125,8 @@ bool stack<T>::empty() {
  * thereby increasing size by one Const T
  *******************************************/
 
-template <class T>
-void stack <T> :: push(const T & element) {
+template <class T> 
+void stack<T>::push(const T &element) {
   if (size() = capacity()) {
     resize(capacity() * 2);
   }
@@ -127,8 +138,8 @@ void stack <T> :: push(const T & element) {
  * Remove the top-most element in the stack,
  * thereby reducing the size by one.
  *******************************************/
-template <class T>
-void stack <T> :: pop() {
+template <class T> 
+void stack<T>::pop() {
   if (!empty()) {
     --numElements;
   } else {
@@ -141,8 +152,7 @@ void stack <T> :: pop() {
  * Returns the top-most element in the stack.
  *******************************************/
 template <class T> 
-void stack<T>::top() const throw(const char *)
-{
+void stack<T>::top() const {
   if (!empty()) {
     return data[size() - 1];
   } else {
@@ -150,17 +160,13 @@ void stack<T>::top() const throw(const char *)
   }
 }
 
-template <class T>
-void stack<T>::top() throw(const char *)
-{
-   if (!empty()) 
-   {
-      return data[size() - 1];
-   }
-   else 
-   {
-      throw "ERROR: Unable to reference the element from an empty stack";
-   }
+template <class T> 
+void stack<T>::top() {
+  if (!empty()) {
+    return data[size() - 1];
+  } else {
+    throw "ERROR: Unable to reference the element from an empty stack";
+  }
 }
 
 /********************************************
@@ -183,6 +189,5 @@ int stack<T>::resize(int capacityNew) {
   }
 };
 } // namespace custom
-
 
 #endif /* STACK_H */
